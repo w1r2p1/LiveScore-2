@@ -1,4 +1,5 @@
-﻿using LiveScore.Utils;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LiveScore.Models.Business
 {
@@ -13,16 +14,22 @@ namespace LiveScore.Models.Business
         AwayPenalty = 6
     }
 
-    public class Score
+    public sealed class Score
     {
         public int Id { get; set; }
+
+        [Required]
         public int HomeTeamGoals { get; set; }
+
+        [Required]
         public int AwayTeamGoals { get; set; }
+
         public int HomeTeamOTGoals { get; set; }
         public int AwayTeamOTGoals { get; set; }
         public int HomeTeamPenaltyGoals { get; set; }
         public int AwayTeamPenaltyGoals { get; set; }
 
+        [NotMapped]
         public MatchWinner Winner
         {
             get
