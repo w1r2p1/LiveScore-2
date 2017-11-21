@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using LiveScore.Models.Request;
 using LiveScore.Models.Response;
+using LiveScore.Contracts;
 
 namespace LiveScore.Controllers
 {
@@ -10,6 +11,15 @@ namespace LiveScore.Controllers
     [Route("api/scores")]
     public class ScoresController : Controller
     {
+        private readonly IScoresService scoresService;
+        private readonly IGroupService groupsService;
+
+        public ScoresController(IScoresService scoresService, IGroupService groupsService)
+        {
+            this.scoresService = scoresService;
+            this.groupsService = groupsService;
+        }
+
         #region LVL1
 
         [Authorize("create:scores")]
