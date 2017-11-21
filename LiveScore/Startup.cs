@@ -18,6 +18,8 @@ using System.IO;
 using System.Reflection;
 using Autofac.Core;
 using LiveScore.Utils.DependencyInjection;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
+using LiveScore.Utils.ModelBinding;
 
 namespace LiveScore
 {
@@ -45,7 +47,13 @@ namespace LiveScore
             services.AddOptions();
             services.Configure<LiveScore.Utils.Config.Options>(Configuration);
 
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                var arrayModelBinderProvider = options.ModelBinderProviders.OfType<ArrayModelBinderProvider>().First();
+                options.ModelBinderProviders.Insert(
+                    options.ModelBinderProviders.IndexOf(arrayModelBinderProvider),
+                    new DelimitedArrayModelBinderProvider());
+            });
 
             string domain = $"https://{Configuration["Auth0:Domain"]}/";
 
