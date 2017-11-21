@@ -1,4 +1,6 @@
-﻿namespace LiveScore.Models.Business
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace LiveScore.Models.Business
 {
     public enum LeagueStatus
     {
@@ -11,9 +13,18 @@
     public class League
     {
         public int Id { get; set; }
+
+        [Required]
+        [MaxLength(50, ErrorMessage = "Group name must be 50 characters or less"), MinLength(1)]
         public string Name { get; set; }
+
+        [Required]
         public int StartYear { get; set; }
+
+        [Required]
         public int EndYear { get; set; }
+
+        [Required]
         public LeagueStatus Status { get; set; }
     }
 }

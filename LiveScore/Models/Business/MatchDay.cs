@@ -1,4 +1,6 @@
-﻿namespace LiveScore.Models.Business
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace LiveScore.Models.Business
 {
     public enum MatchDayStatus
     {
@@ -13,8 +15,14 @@
     public class MatchDay
     {
         public int Id { get; set; }
+
+        [Required]
         public int Number { get; set; }
+
+        [Required]
         public MatchDayStatus Status { get; set; }
+
+        [Required]
         public League League { get; set; }
     }
 }
