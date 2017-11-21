@@ -11,6 +11,13 @@ using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using LiveScore.Utils.Authorization;
 using Microsoft.AspNetCore.Rewrite;
+using Microsoft.AspNetCore.Mvc;
+using Autofac.Extensions.DependencyInjection;
+using Autofac;
+using System.IO;
+using System.Reflection;
+using Autofac.Core;
+using LiveScore.Utils.DependencyInjection;
 
 namespace LiveScore
 {
@@ -22,13 +29,22 @@ namespace LiveScore
         {
             var builder = new ConfigurationBuilder()
                .SetBasePath(env.ContentRootPath)
-               .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+               .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+               .AddJsonFile("config.json", optional: true, reloadOnChange: true);
 
             Configuration = builder.Build();
         }
 
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.Configure<MvcOptions>(options =>
+            {
+                options.Filters.Add(new RequireHttpsAttribute());
+            });
+
+            services.AddOptions();
+            services.Configure<LiveScore.Utils.Config.Options>(Configuration);
+
             services.AddMvc();
 
             string domain = $"https://{Configuration["Auth0:Domain"]}/";
@@ -49,9 +65,13 @@ namespace LiveScore
                 options.AddPolicy("read:scores", policy => policy.Requirements.Add(new HasScopeRequirement("read:scores", domain)));
                 options.AddPolicy("create:scores", policy => policy.Requirements.Add(new HasScopeRequirement("create:scores", domain)));
             });
+
+            var containerBuilder = RegisterModules();
+            containerBuilder.Populate(services);
+
+            return new AutofacServiceProvider(containerBuilder.Build());
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -67,6 +87,35 @@ namespace LiveScore
             app.UseAuthentication();
 
             app.UseMvc();
+        }
+
+        private ContainerBuilder RegisterModules()
+        {
+            var builder = new ContainerBuilder();
+            builder.RegisterModule(new DefaultModule());
+
+            var path = Configuration["pluginPath"];
+
+            if (String.IsNullOrWhiteSpace(path) || !Directory.Exists(path))
+            {
+                return builder;
+            }
+
+            var assemblies = Directory.GetFiles(path).Select(Assembly.LoadFrom);
+
+            foreach (var assembly in assemblies)
+            {
+                var modules = assembly.GetTypes()
+                    .Where(p => typeof(IModule).IsAssignableFrom(p) && !p.IsAbstract)
+                    .Select(p => (IModule)Activator.CreateInstance(p));
+
+                foreach (var module in modules)
+                {
+                    builder.RegisterModule(module);
+                }
+            }
+
+            return builder;
         }
     }
 }
