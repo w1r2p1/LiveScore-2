@@ -4,6 +4,7 @@ namespace LiveScore.Models.Business
 {
     public class Group
     {
+        [Key]
         public int Id { get; set; }
 
         [Required]

@@ -14,6 +14,7 @@ namespace LiveScore.Models.Business
 
     public class MatchDay
     {
+        [Key]
         public int Id { get; set; }
 
         [Required]

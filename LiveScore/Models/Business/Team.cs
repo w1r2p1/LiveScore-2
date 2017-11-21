@@ -5,6 +5,7 @@ namespace LiveScore.Models.Business
 {
     public class Team
     {
+        [Key]
         public int Id { get; set; }
 
         [Required]

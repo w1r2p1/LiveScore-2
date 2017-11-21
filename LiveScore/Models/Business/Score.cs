@@ -16,6 +16,7 @@ namespace LiveScore.Models.Business
 
     public sealed class Score
     {
+        [Key]
         public int Id { get; set; }
 
         [Required]
