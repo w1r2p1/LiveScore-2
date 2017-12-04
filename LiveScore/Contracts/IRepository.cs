@@ -13,5 +13,8 @@ namespace LiveScore.Contracts
         void Delete(object id);
         void Delete(TEntity entityToDelete);
         void Update(TEntity entityToUpdate);
+        IEnumerable<TEntity> Query<TProperty>(Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            params Expression<Func<TEntity, TProperty>>[] navigationPropertyPath);
     }
 }
