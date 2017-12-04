@@ -7,20 +7,10 @@ namespace LiveScore.Models.Business
     {
         [Key]
         public int Id { get; set; }
-
-        [Required]
         public Team HomeTeam { get; set; }
-
-        [Required]
         public Team AwayTeam { get; set; }
-
-        [Required]
         public Score Score { get; set; }
-
-        [Required]
         public DateTime KickOff { get; set; }
-
-        [Required]
         public MatchDay MatchDay { get; set; }
     }
 }

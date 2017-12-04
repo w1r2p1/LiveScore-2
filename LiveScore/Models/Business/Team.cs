@@ -1,4 +1,4 @@
-﻿using LiveScore.Utils;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace LiveScore.Models.Business
@@ -7,11 +7,10 @@ namespace LiveScore.Models.Business
     {
         [Key]
         public int Id { get; set; }
-
-        [Required]
         public string Name { get; set; }
 
-        [Required]
-        public Country Country { get; set; }
+        public Group Group { get; set; }
+        public List<Game> HomeGames { get; set; }
+        public List<Game> AwayGames { get; set; }
     }
 }
