@@ -20,6 +20,7 @@ using Autofac.Core;
 using LiveScore.Utils.DependencyInjection;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using LiveScore.Utils.ModelBinding;
+using LiveScore.Utils.Middleware;
 
 namespace LiveScore
 {
@@ -87,13 +88,11 @@ namespace LiveScore
                 app.UseDeveloperExceptionPage();
             }
 
-            var options = new RewriteOptions()
-                .AddRedirectToHttps();
-
+            var options = new RewriteOptions().AddRedirectToHttps();
             app.UseRewriter(options);
 
             app.UseAuthentication();
-
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseMvc();
         }
 
@@ -102,26 +101,26 @@ namespace LiveScore
             var builder = new ContainerBuilder();
             builder.RegisterModule(new DefaultModule());
 
-            //var path = Configuration["pluginPath"];
+            var path = Configuration["pluginPath"];
 
-            //if (String.IsNullOrWhiteSpace(path) || !Directory.Exists(path))
-            //{
-            //    return builder;
-            //}
+            if (String.IsNullOrWhiteSpace(path) || !Directory.Exists(path))
+            {
+                return builder;
+            }
 
-            //var assemblies = Directory.GetFiles(path).Select(Assembly.LoadFrom);
+            var assemblies = Directory.GetFiles(path, "*.dll").Select(Assembly.LoadFrom);
 
-            //foreach (var assembly in assemblies)
-            //{
-            //    var modules = assembly.GetTypes()
-            //        .Where(p => typeof(IModule).IsAssignableFrom(p) && !p.IsAbstract)
-            //        .Select(p => (IModule)Activator.CreateInstance(p));
+            foreach (var assembly in assemblies)
+            {
+                var modules = assembly.GetTypes()
+                    .Where(p => typeof(IModule).IsAssignableFrom(p) && !p.IsAbstract)
+                    .Select(p => (IModule)Activator.CreateInstance(p));
 
-            //    foreach (var module in modules)
-            //    {
-            //        builder.RegisterModule(module);
-            //    }
-            //}
+                foreach (var module in modules)
+                {
+                    builder.RegisterModule(module);
+                }
+            }
 
             return builder;
         }

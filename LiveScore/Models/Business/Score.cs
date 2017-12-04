@@ -17,6 +17,9 @@ namespace LiveScore.Models.Business
         public int HomeTeamGoals { get; set; }
         public int AwayTeamGoals { get; set; }
 
+        public int GameRef { get; set; }
+        public Game Game { get; set; }
+
         [NotMapped]
         public MatchWinner Winner
         {

@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace LiveScore.Utils
+﻿namespace LiveScore.Utils
 {
     public enum ErrorCode
     {
         NoError = 0,
         Unknown = 1,
-        InvalidGroupId = 2,
-        MissingScores = 3,
-        InvalidScores = 4
+        InternalServerError = 2,
+        ClientError = 3,
+        InvalidGroupId = 4,
+        MissingScores = 5,
+        InvalidScores = 6
     }
 }
