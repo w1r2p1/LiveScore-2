@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using LiveScore.Contracts;
+using LiveScore.Services;
 
 namespace LiveScore.Utils.DependencyInjection
 {
@@ -6,7 +8,8 @@ namespace LiveScore.Utils.DependencyInjection
     {
         protected override void Load(ContainerBuilder builder)
         {
-            // TODO: Register core services
+            builder.RegisterType<GroupService>().As<IGroupService>();
+            builder.RegisterType<ScoresService>().As<IScoresService>();
         }
     }
 }

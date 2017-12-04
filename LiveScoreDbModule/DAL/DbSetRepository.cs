@@ -71,6 +71,11 @@ namespace LiveScoreDbModule.DAL
             dbSet.Add(entity);
         }
 
+        public void InsertBulk(IEnumerable<TEntity> entities)
+        {
+            dbSet.AddRange(entities);
+        }
+
         public void Update(TEntity entityToUpdate)
         {
             dbSet.Attach(entityToUpdate);

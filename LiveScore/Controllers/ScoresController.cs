@@ -1,9 +1,9 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using LiveScore.Models.Request;
-using LiveScore.Models.Response;
 using LiveScore.Contracts;
+using LiveScore.Utils;
+using System.Linq;
 
 namespace LiveScore.Controllers
 {
@@ -20,87 +20,54 @@ namespace LiveScore.Controllers
             this.groupsService = groupsService;
         }
 
-        #region LVL1
+        [Authorize("create:scores")]
+        [HttpPut("submit")]
+        public IActionResult SubmitScores([FromBody]GameScore[] groupScores)
+        {
+            if (groupScores == null || !groupScores.Any())
+            {
+                return CreateErrorCodeMessage(ErrorCode.MissingScores);
+            }
+
+            scoresService.SubmitScores(groupScores);
+            return Ok();
+        }
 
         [Authorize("create:scores")]
-        [HttpPut("{id}")]
-        public IActionResult SubmitGroupScores(int id, [FromBody]GameScore[] gameScores)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion LVL1
-
-        #region LVL2
-
-        [Authorize("read:scores")]
-        [HttpGet("{id}")]
-        public IActionResult GetGroupStandings(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion LVL2
-
-        #region LVL3
-
-        [Authorize("create:scores")]
-        [HttpPut]
-        public IActionResult SubmitGroupScores([FromBody]GameScore[] groupScores)
-        {
-            throw new NotImplementedException();
-        }
-
-        [HttpGet]
-        public IActionResult GetGroupStandings()
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion LVL3
-
-        #region LVL4
-
-        [Authorize("read:scores")]
-        [HttpGet]
-        public GroupStandings[] GetGroupStandings(int[] groupIds)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion LVL4
-
-        #region LVL5
-
-        [Authorize("create:scores")]
-        [HttpPut]
-        public GroupStandings[] SubmitGameScores([FromBody]GameScore[] gameScores)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion LVL5
-
-        #region LVL6
-
-        [Authorize("read:scores")]
-        [HttpGet]
-        public IActionResult GetScores(Filter[] scoreFilters)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion LVL6
-
-        #region LVL7
-
-        [Authorize("create:scores")]
-        [HttpPost]
+        [HttpPost("update")]
         public IActionResult UpdateScores(GameScore[] scores)
         {
-            throw new NotImplementedException();
+            if (scores == null || !scores.Any())
+            {
+                return CreateErrorCodeMessage(ErrorCode.MissingScores);
+            }
+
+            scoresService.UpdateScores(scores);
+            return Ok();
         }
 
-        #endregion LVL7
+        [Authorize("read:scores")]
+        [HttpGet("fetch")]
+        public IActionResult GetScores(Filter[] scoreFilters)
+        {
+            return Ok(scoresService.GetScores(scoreFilters));
+        }
+
+        [Authorize("read:scores")]
+        [HttpGet("standings")]
+        public IActionResult GetStandings(int[] groupIds)
+        {
+            if (groupIds != null && groupIds.Any() && !groupIds.All(g => groupsService.CheckGroupId(g)))
+            {
+                return CreateErrorCodeMessage(ErrorCode.InvalidGroupId);
+            }
+
+            return Ok(groupsService.GetStandings(groupIds));
+        }
+
+        private BadRequestObjectResult CreateErrorCodeMessage(ErrorCode errorCode)
+        {
+            return BadRequest(new { error = errorCode });
+        }
     }
 }

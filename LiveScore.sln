@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiveScore", "LiveScore\LiveScore.csproj", "{41FD9486-A164-445A-8D7B-B3F866A79D1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveScoreDbModule", "LiveScoreDbModule\LiveScoreDbModule.csproj", "{0807996D-B2A7-4241-881B-D817CDA2E018}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiveScoreDbModule", "LiveScoreDbModule\LiveScoreDbModule.csproj", "{0807996D-B2A7-4241-881B-D817CDA2E018}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
