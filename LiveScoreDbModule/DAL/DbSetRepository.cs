@@ -1,9 +1,6 @@
 ﻿using LiveScore.Contracts;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 
 namespace LiveScoreDbModule.DAL
 {
@@ -55,30 +52,14 @@ namespace LiveScoreDbModule.DAL
             ctx.Entry(entityToUpdate).State = EntityState.Modified;
         }
 
-        public IEnumerable<TEntity> Query<TProperty>(Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            params Expression<Func<TEntity, TProperty>>[] navigationPropertyPath)
+        public IQuery<TEntity> Query()
         {
-            IQueryable<TEntity> query = dbSet;
+            return new Query<TEntity>(dbSet);
+        }
 
-            if (filter != null)
-            {
-                query = query.Where(filter);
-            }
-
-            foreach (var includeProperty in navigationPropertyPath)
-            {
-                query = query.Include(includeProperty);
-            }
-
-            if (orderBy != null)
-            {
-                return orderBy(query).ToList();
-            }
-            else
-            {
-                return query.ToList();
-            }
+        public IEnumerable<TEntity> GetAll()
+        {
+            return new Query<TEntity>(dbSet).Execute();
         }
     }
 }
