@@ -123,18 +123,18 @@ namespace LiveScore.Services
             return resultModels.ToArray();
         }
 
-        private string GetLeagueNameByGroupId(int groupId)
-        {
-            var league = dbUnit.Groups.GetById(groupId).League.Id;
-            return GetLeagueName(league);
-        }
-
-        private string GetLeagueName(int leagueId)
+        public string GetLeagueName(int leagueId)
         {
             var league = dbUnit.Leagues.GetById(leagueId);
             var endYearTxt = league.EndYear.ToString();
 
             return string.Format("{0} {1}/{2}", league.Name, league.StartYear, endYearTxt.Substring(endYearTxt.Length - 2));
+        }
+
+        private string GetLeagueNameByGroupId(int groupId)
+        {
+            var league = dbUnit.Groups.GetById(groupId).League.Id;
+            return GetLeagueName(league);
         }
     }
 }

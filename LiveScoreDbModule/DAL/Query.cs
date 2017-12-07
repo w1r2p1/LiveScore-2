@@ -21,13 +21,9 @@ namespace LiveScoreDbModule.DAL
             return query.ToList();
         }
 
-        public IQuery<TEntity> Include(params Expression<Func<TEntity, object>>[] navigationPropertyPaths)
+        public IQuery<TEntity> Include(Expression<Func<TEntity, object>> navigationPropertyPath)
         {
-            foreach (var includeProperty in navigationPropertyPaths)
-            {
-                query = query.Include(includeProperty);
-            }
-
+            query = query.Include(navigationPropertyPath);
             return this;
         }
 

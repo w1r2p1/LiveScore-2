@@ -7,5 +7,6 @@ namespace LiveScore.Contracts
     {
         bool CheckGroupId(int groupId);
         GroupStandings[] GetStandings(int[] groupIds = null);
+        string GetLeagueName(int leagueId);
     }
 }

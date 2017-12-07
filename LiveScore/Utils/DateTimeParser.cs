@@ -23,5 +23,10 @@ namespace LiveScore.Utils
 
             throw new ClientRequestException(string.Format("Invalid date value: {0}", dateString));
         }
+
+        public static string PrintDate(DateTime date)
+        {
+            return date.ToString(allowedFormats[0]);
+        }
     }
 }
