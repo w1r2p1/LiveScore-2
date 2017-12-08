@@ -7,15 +7,27 @@ using System.Threading.Tasks;
 
 namespace LiveScore.Utils.Middleware
 {
+    /// <summary>
+    /// Excetion handling middleware that propagates error codes in JSON format to client with coresponding HTTP status code.
+    /// </summary>
     public class ErrorHandlingMiddleware
     {
         private readonly RequestDelegate next;
 
+        /// <summary>
+        /// Constructor that receives request delegate.
+        /// </summary>
+        /// <param name="next">Request delegate</param>
         public ErrorHandlingMiddleware(RequestDelegate next)
         {
             this.next = next;
         }
 
+        /// <summary>
+        /// This method invokes next middleware in request pipeline and handles unpredicted exceptions.
+        /// </summary>
+        /// <param name="context">Http context</param>
+        /// <returns><see cref="System.Threading.Tasks.Task"/></returns>
         public async Task Invoke(HttpContext context)
         {
             try

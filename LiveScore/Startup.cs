@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using LiveScore.Utils.Authorization;
 using Microsoft.AspNetCore.Rewrite;
@@ -24,10 +20,18 @@ using LiveScore.Utils.Middleware;
 
 namespace LiveScore
 {
+    /// <summary>
+    /// Startup class that provides application initialization and configuration functionalities.
+    /// </summary>
     public class Startup
     {
+        /// <summary>Application configuration</summary>
         public IConfiguration Configuration { get; }
 
+        /// <summary>
+        /// Constructor that receives hosting environment.
+        /// </summary>
+        /// <param name="env">Hosting environment</param>
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -38,6 +42,11 @@ namespace LiveScore
             Configuration = builder.Build();
         }
 
+        /// <summary>
+        /// This method configures application services.
+        /// </summary>
+        /// <param name="services">Service collection</param>
+        /// <returns><see cref="AutofacServiceProvider"/></returns>
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.Configure<MvcOptions>(options =>
@@ -81,6 +90,11 @@ namespace LiveScore
             return new AutofacServiceProvider(containerBuilder.Build());
         }
 
+        /// <summary>
+        /// This method configures application and middleware.
+        /// </summary>
+        /// <param name="app">Application builder</param>
+        /// <param name="env">Hosting environment</param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())

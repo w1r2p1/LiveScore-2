@@ -5,8 +5,16 @@ using System.Threading.Tasks;
 
 namespace LiveScore.Utils.ModelBinding
 {
+    /// <summary>
+    /// Model binder that adds support for coma-separated parameter values in requests.
+    /// </summary>
     public class DelimitedArrayModelBinder : IModelBinder
     {
+        /// <summary>
+        /// This method binds coma-separated parameter values to typed array.
+        /// </summary>
+        /// <param name="bindingContext">Model binding context</param>
+        /// <returns>Successfully completed task</returns>
         public Task BindModelAsync(ModelBindingContext bindingContext)
         {
             if (bindingContext == null)

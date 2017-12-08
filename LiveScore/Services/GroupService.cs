@@ -6,20 +6,37 @@ using LiveScore.Models.Business;
 
 namespace LiveScore.Services
 {
+    /// <summary>
+    /// Implementation of group-related service functionalities.
+    /// </summary>
     public class GroupService : IGroupService
     {
         private readonly IUnitOfWork dbUnit;
 
+        /// <summary>
+        /// Constructor that receives unit of work parameter.
+        /// </summary>
+        /// <param name="unitOfWork">Unit of work</param>
         public GroupService(IUnitOfWork unitOfWork)
         {
             dbUnit = unitOfWork;
         }
 
+        /// <summary>
+        /// This method checks whether givren group Id is valid.
+        /// </summary>
+        /// <param name="groupId">Test group Id</param>
+        /// <returns>Whether or not group with givrn Id exists</returns>
         public bool CheckGroupId(int groupId)
         {
             return dbUnit.Groups.GetById(groupId) != null;
         }
 
+        /// <summary>
+        /// This method gets standigs for given group Ids or all existing groups.
+        /// </summary>
+        /// <param name="groupIds">Gruop Ids for result filtering</param>
+        /// <returns>Standings for requested or all groups</returns>
         public GroupStandings[] GetStandings(int[] groupIds = null)
         {
             var filtered = groupIds != null && groupIds.Any();
@@ -59,7 +76,9 @@ namespace LiveScore.Services
 
                     var games = dbUnit.Games.Query()
                         .Where(g => g.HomeTeam.Id == team.Id || g.AwayTeam.Id == team.Id)
-                        .Include(g => g.HomeTeam, g => g.AwayTeam, g => g.Score)
+                        .Include(g => g.HomeTeam)
+                        .Include(g => g.AwayTeam)
+                        .Include(g => g.Score)
                         .Execute();
 
                     foreach (var game in games)
@@ -123,6 +142,11 @@ namespace LiveScore.Services
             return resultModels.ToArray();
         }
 
+        /// <summary>
+        /// This method obtains formated league name from given league Id.
+        /// </summary>
+        /// <param name="leagueId">Given league Id</param>
+        /// <returns>Formated league name</returns>
         public string GetLeagueName(int leagueId)
         {
             var league = dbUnit.Leagues.GetById(leagueId);

@@ -1,5 +1,8 @@
 ﻿namespace LiveScore.Utils
 {
+    /// <summary>
+    /// Error codes enumeration
+    /// </summary>
     public enum ErrorCode
     {
         NoError = 0,

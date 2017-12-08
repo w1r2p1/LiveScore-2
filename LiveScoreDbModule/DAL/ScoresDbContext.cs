@@ -5,17 +5,16 @@ using System.IO;
 
 namespace LiveScoreDbModule.DAL
 {
+    /// <summary>
+    /// Database context with properties which provide access to SQL tables.
+    /// </summary>
     public class ScoresDbContext : DbContext
     {
         private readonly IConfiguration configuration;
 
-        public DbSet<Score> Scores { get; set; }
-        public DbSet<Game> Games { get; set; }
-        public DbSet<Group> Groups { get; set; }
-        public DbSet<Team> Teams { get; set; }
-        public DbSet<League> Leagues { get; set; }
-        public DbSet<MatchDay> MatchDays { get; set; }
-
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
         public ScoresDbContext() : base()
         {
             var assemblyLocation = typeof(ScoresDbContext).Assembly.Location;
@@ -30,11 +29,19 @@ namespace LiveScoreDbModule.DAL
             Database.EnsureCreated();
         }
 
+        /// <summary>
+        /// This method configures usage of SQL Server with provided connection string.
+        /// </summary>
+        /// <param name="optionsBuilder"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
         }
 
+        /// <summary>
+        /// This method uses <see cref="ModelBuilder"/> fluid API to define foreign keys.
+        /// </summary>
+        /// <param name="modelBuilder">Model builder</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Game>()

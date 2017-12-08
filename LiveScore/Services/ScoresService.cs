@@ -9,6 +9,9 @@ using System.Collections.Generic;
 
 namespace LiveScore.Services
 {
+    /// <summary>
+    /// Implementation of scores-related service functionalities.
+    /// </summary>
     public class ScoresService : IScoresService
     {
         private readonly IUnitOfWork dbUnit;
@@ -17,6 +20,12 @@ namespace LiveScore.Services
 
         private const string scoreRegex = @"(\d{1,2}):(\d{1,2})\s*(\((\d{1,2}):(\d{1,2})\))*\s*(\((\d{1,2}):(\d{1,2})\))*";
 
+        /// <summary>
+        /// Constructor that receives unit of work, group service, and game filter factory as parameters.
+        /// </summary>
+        /// <param name="unitOfWork">Unit of work</param>
+        /// /// <param name="service">Group service</param>
+        /// /// <param name="filterFactory">Games filter factory</param>
         public ScoresService(IUnitOfWork unitOfWork, IGroupService service, IFilterFactory<Game> filterFactory)
         {
             this.dbUnit = unitOfWork;
@@ -24,6 +33,11 @@ namespace LiveScore.Services
             this.filters = filterFactory;
         }
 
+        /// <summary>
+        /// This method obtains filtered or all scores.
+        /// </summary>
+        /// <param name="scoreFilters">Score filters</param>
+        /// <returns>Multiple filtered game scores</returns>
         public GameScore[] GetScores(Filter[] scoreFilters = null)
         {
             var games = dbUnit.Games.Query()
@@ -35,7 +49,7 @@ namespace LiveScore.Services
 
             if (scoreFilters == null || !scoreFilters.Any())
             {
-                return CreaateGameScores(games);
+                return CreateGameScores(games);
             }
 
             var filteredGames = new List<Game>();
@@ -63,30 +77,13 @@ namespace LiveScore.Services
                 }
             }
 
-            return CreaateGameScores(filteredGames);
+            return CreateGameScores(filteredGames);
         }
 
-        private GameScore[] CreaateGameScores(IEnumerable<Game> games)
-        {
-            var gameScores = new List<GameScore>();
-
-            foreach (var game in games)
-            {
-                var gameScore = new GameScore
-                {
-                    LeagueTitle = groupService.GetLeagueName(GetLeagueIdFromGame(game)),
-                    Group = GetGroupFromGame(game).Name,
-                    HomeTeam = game.HomeTeam.Name,
-                    AwayTeam = game.AwayTeam.Name,
-                    MatchDay = game.MatchDay.Number,
-                    KickOffAt = DateTimeParser.PrintDate(game.KickOff),
-                    Score = string.Format("{0}:{1}", game.Score.HomeTeamGoals, game.Score.AwayTeamGoals)
-                };
-            }
-
-            return gameScores.ToArray();
-        }
-
+        /// <summary>
+        /// This method allows submition of new scores.
+        /// </summary>
+        /// <param name="gameScores">Scores to be submited</param>
         public void SubmitScores(GameScore[] gameScores)
         {
             foreach (var gs in gameScores)
@@ -102,6 +99,10 @@ namespace LiveScore.Services
             }
         }
 
+        /// <summary>
+        /// This method allows update of existing scores.
+        /// </summary>
+        /// <param name="scores">Scores to be updated</param>
         public void UpdateScores(GameScore[] gameScores)
         {
             foreach (var gs in gameScores)
@@ -122,6 +123,27 @@ namespace LiveScore.Services
 
                 dbUnit.Save();
             }
+        }
+
+        private GameScore[] CreateGameScores(IEnumerable<Game> games)
+        {
+            var gameScores = new List<GameScore>();
+
+            foreach (var game in games)
+            {
+                var gameScore = new GameScore
+                {
+                    LeagueTitle = groupService.GetLeagueName(GetLeagueIdFromGame(game)),
+                    Group = GetGroupFromGame(game).Name,
+                    HomeTeam = game.HomeTeam.Name,
+                    AwayTeam = game.AwayTeam.Name,
+                    MatchDay = game.MatchDay.Number,
+                    KickOffAt = DateTimeParser.PrintDate(game.KickOff),
+                    Score = string.Format("{0}:{1}", game.Score.HomeTeamGoals, game.Score.AwayTeamGoals)
+                };
+            }
+
+            return gameScores.ToArray();
         }
 
         private int GetLeagueIdFromGame(Game game)
