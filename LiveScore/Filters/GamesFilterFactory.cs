@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using LiveScore.Models.Request;
 using LiveScore.Filters.Games;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.ExceptionServices;
 
 namespace LiveScore.Filters
 {
@@ -36,7 +38,15 @@ namespace LiveScore.Filters
         /// <returns>Filter implementation</returns>
         public IFilter<Game> Create(Filter filter)
         {
-            return Activator.CreateInstance(gameFilters[filter.Name]) as IFilter<Game>;
+            try
+            {
+                return Activator.CreateInstance(gameFilters[filter.Name], filter.Value) as IFilter<Game>;
+            }
+            catch (TargetInvocationException tie)
+            {
+                ExceptionDispatchInfo.Capture(tie.InnerException).Throw();
+                throw;
+            }
         }
 
         /// <summary>
@@ -46,7 +56,17 @@ namespace LiveScore.Filters
         /// <returns>Multiple filter implementation</returns>
         public IEnumerable<IFilter<Game>> Create(Filter[] filters)
         {
-            return filters.Select(f => Activator.CreateInstance(gameFilters[f.Name])).Cast<IFilter<Game>>();
+            try
+            {
+                return filters.Select(f => Activator.CreateInstance(gameFilters[f.Name], f.Value))
+                    .Cast<IFilter<Game>>()
+                    .ToList();
+            }
+            catch (TargetInvocationException tie)
+            {
+                ExceptionDispatchInfo.Capture(tie.InnerException).Throw();
+                throw;
+            }
         }
     }
 }

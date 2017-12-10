@@ -1,5 +1,7 @@
 ﻿using LiveScore.Contracts;
+using LiveScore.Exceptions;
 using LiveScore.Models.Business;
+using System;
 
 namespace LiveScore.Filters.Games
 {
@@ -14,9 +16,16 @@ namespace LiveScore.Filters.Games
         /// Constructor that receives team Id parameter.
         /// </summary>
         /// <param name="groupId">Team Id parameter</param>
-        public GamesTeamFilter(int teamId)
+        public GamesTeamFilter(string teamId)
         {
-            this.teamId = teamId;
+            if (Int32.TryParse(teamId, out var tmpTeamId))
+            {
+                this.teamId = tmpTeamId;
+            }
+            else
+            {
+                throw new ClientRequestException(string.Format("Invalid team Id value: {0}", teamId));
+            }
         }
 
         /// <summary>

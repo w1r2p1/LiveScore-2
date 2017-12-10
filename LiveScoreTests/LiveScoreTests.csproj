@@ -13,9 +13,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Filters\Games\" />
     <Folder Include="Utils\" />
     <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LiveScore\LiveScore.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,6 @@
 ﻿using LiveScore.Contracts;
 using LiveScore.Models.Business;
+using LiveScore.Utils;
 using System;
 
 namespace LiveScore.Filters.Games
@@ -15,9 +16,9 @@ namespace LiveScore.Filters.Games
         /// Constructor that recieves start date parameter.
         /// </summary>
         /// <param name="endDate">Start date parameter</param>
-        public GamesStartDateFilter(DateTime startDate)
+        public GamesStartDateFilter(string startDate)
         {
-            this.startDate = startDate;
+            this.startDate = DateTimeParser.ParseDate(startDate);
         }
 
         /// <summary>
