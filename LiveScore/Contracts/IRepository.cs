@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace LiveScore.Contracts
 {
@@ -13,13 +15,20 @@ namespace LiveScore.Contracts
         /// </summary>
         /// <param name="id">Unique entity Id</param>
         /// <returns>Business model entity</returns>
-        TEntity GetById(object id);
-        
+        TEntity Get(int id);
+
         /// <summary>
-        /// This method returns all the entities of certain business model type.
+        /// This method returns all the entities of certain business model type that satisfy certain condition.
+        /// </summary>
+        /// <param name="condition">Sarch condition</param>
+        /// <returns>Business model entities</returns>
+        IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> condition);
+
+        /// <summary>
+        /// This method returns all the entities of certain business model.
         /// </summary>
         /// <returns>Business model entities</returns>
-        IEnumerable<TEntity> GetAll();
+        IEnumerable<TEntity> Get();
 
         /// <summary>
         /// This method adds provided entity to repository.
@@ -50,11 +59,5 @@ namespace LiveScore.Contracts
         /// </summary>
         /// <param name="entityToUpdate">Entity to be updated.</param>
         void Update(TEntity entityToUpdate);
-
-        /// <summary>
-        /// This method provides query object for repository.
-        /// </summary>
-        /// <returns>Fluent API query object</returns>
-        IQuery<TEntity> Query();
     }
 }

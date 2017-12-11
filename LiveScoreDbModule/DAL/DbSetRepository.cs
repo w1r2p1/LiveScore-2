@@ -1,6 +1,10 @@
 ﻿using LiveScore.Contracts;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 
 namespace LiveScoreDbModule.DAL
 {
@@ -12,6 +16,7 @@ namespace LiveScoreDbModule.DAL
     {
         private ScoresDbContext ctx;
         private DbSet<TEntity> dbSet;
+        private IEnumerable<PropertyInfo> includedProperties;
 
         /// <summary>
         /// Constuctor that receives DB context.
@@ -21,6 +26,13 @@ namespace LiveScoreDbModule.DAL
         {
             this.ctx = context;
             this.dbSet = context.Set<TEntity>();
+            this.includedProperties = typeof(TEntity)
+                .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Where(p => 
+                    p.PropertyType.IsAssignableFrom(typeof(TEntity)) ||
+                    p.PropertyType.IsGenericType &&
+                    (p.PropertyType.GetGenericTypeDefinition() == typeof(List<>)) &&
+                    p.PropertyType.GetGenericArguments()[0].IsAssignableFrom(typeof(TEntity)));
         }
 
         /// <summary>
@@ -52,9 +64,42 @@ namespace LiveScoreDbModule.DAL
         /// </summary>
         /// <param name="id">Unique entity Id</param>
         /// <returns>Business model entity</returns>
-        public TEntity GetById(object id)
+        public TEntity Get(int id)
         {
-            return dbSet.Find(id);
+            return Get(e => e.Id == id).Single();
+        }
+
+        /// <summary>
+        /// This method returns all the entities of certain business model type that satisfy certain condition.
+        /// </summary>
+        /// <param name="condition">Search condition</param>
+        /// <returns>Business model entities</returns>
+        public IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> condition)
+        {
+            var query = dbSet.Where(condition);
+
+            foreach (var includeProperty in includedProperties)
+            {
+                query = query.Include(includeProperty.Name);
+            }
+
+            return query.ToList();
+        }
+
+        /// <summary>
+        /// This method returns all the entities of certain business model.
+        /// </summary>
+        /// <returns>Business model entities</returns>
+        public IEnumerable<TEntity> Get()
+        {
+            IQueryable<TEntity> query = dbSet;
+
+            foreach (var includeProperty in includedProperties)
+            {
+                query = query.Include(includeProperty.Name);
+            }
+
+            return query.ToList();
         }
 
         /// <summary>
@@ -83,24 +128,6 @@ namespace LiveScoreDbModule.DAL
         {
             dbSet.Attach(entityToUpdate);
             ctx.Entry(entityToUpdate).State = EntityState.Modified;
-        }
-
-        /// <summary>
-        /// This method provides query object for repository.
-        /// </summary>
-        /// <returns>Fluent API query object</returns>
-        public IQuery<TEntity> Query()
-        {
-            return new Query<TEntity>(dbSet);
-        }
-
-        /// <summary>
-        /// This method returns all the entities of certain business model type.
-        /// </summary>
-        /// <returns>Business model entities</returns>
-        public IEnumerable<TEntity> GetAll()
-        {
-            return new Query<TEntity>(dbSet).Execute();
         }
     }
 }

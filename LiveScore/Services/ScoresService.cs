@@ -40,12 +40,7 @@ namespace LiveScore.Services
         /// <returns>Multiple filtered game scores</returns>
         public GameScore[] GetScores(Filter[] scoreFilters = null)
         {
-            var games = dbUnit.Games.Query()
-                .Include(g => g.Score)
-                .Include(g => g.HomeTeam)
-                .Include(g => g.AwayTeam)
-                .Include(g => g.MatchDay)
-                .Execute();
+            var games = dbUnit.Games.Get();
 
             if (scoreFilters == null || !scoreFilters.Any())
             {
@@ -110,9 +105,8 @@ namespace LiveScore.Services
                 var newScore = ConvertScore(gs);
                 var refGame = ConvertGame(gs);
 
-                var oldGame = dbUnit.Games.Query()
-                    .Where(g => g.Equals(refGame))
-                    .Execute()
+                var oldGame = dbUnit.Games
+                    .Get(g => g.Equals(refGame))
                     .Single();
 
                 var oldScore = oldGame.Score;
@@ -148,22 +142,16 @@ namespace LiveScore.Services
 
         private int GetLeagueIdFromGame(Game game)
         {
-            return dbUnit.MatchDays.Query()
-                .Where(md => md.Id == game.MatchDay.Id)
-                .Include(md => md.League)
-                .Execute()
-                .Single()
+            return dbUnit.MatchDays
+                .Get(game.MatchDay.Id)
                 .League
                 .Id;
         }
 
         private Models.Business.Group GetGroupFromGame(Game game)
         {
-            return dbUnit.Teams.Query()
-                .Where(t => t.Id == game.HomeTeam.Id)
-                .Include(t => t.Group)
-                .Execute()
-                .Single()
+            return dbUnit.Teams
+                .Get(game.HomeTeam.Id)
                 .Group;
         }
 
@@ -183,14 +171,12 @@ namespace LiveScore.Services
             return new Game
             {
                 KickOff = DateTimeParser.ParseDate(gs.KickOffAt),
-                HomeTeam = dbUnit.Teams.Query()
-                    .Where(t => t.Name.Equals(gs.HomeTeam))
-                    .Execute()
+                HomeTeam = dbUnit.Teams
+                    .Get(t => t.Name.Equals(gs.HomeTeam))
                     .FirstOrDefault(),
-                AwayTeam = dbUnit.Teams.Query()
-                    .Where(t => t.Name.Equals(gs.AwayTeam))
-                    .Execute().
-                    FirstOrDefault(),
+                AwayTeam = dbUnit.Teams
+                    .Get(t => t.Name.Equals(gs.AwayTeam))
+                    .FirstOrDefault(),
                 MatchDay = GetMatchday(gs) ?? CreateMatchDay(gs)
             };
         }
@@ -198,11 +184,9 @@ namespace LiveScore.Services
         private MatchDay GetMatchday(GameScore gs)
         {
             return dbUnit.MatchDays
-                .Query()
-                .Where(md =>
+                .Get(md =>
                     md.Number == gs.MatchDay &&
                     groupService.GetLeagueName(md.League.Id).Equals(gs.LeagueTitle))
-                .Execute()
                 .FirstOrDefault();
         }
 
@@ -211,9 +195,8 @@ namespace LiveScore.Services
             return new MatchDay
             {
                 Number = gs.MatchDay,
-                League = dbUnit.Leagues.Query()
-                    .Where(l => groupService.GetLeagueName(l.Id).Equals(gs.LeagueTitle))
-                    .Execute()
+                League = dbUnit.Leagues
+                    .Get(l => groupService.GetLeagueName(l.Id).Equals(gs.LeagueTitle))
                     .Single()
             };
         }
