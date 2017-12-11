@@ -135,6 +135,8 @@ namespace LiveScore.Services
                     KickOffAt = DateTimeParser.PrintDate(game.KickOff),
                     Score = string.Format("{0}:{1}", game.Score.HomeTeamGoals, game.Score.AwayTeamGoals)
                 };
+
+                gameScores.Add(gameScore);
             }
 
             return gameScores.ToArray();
