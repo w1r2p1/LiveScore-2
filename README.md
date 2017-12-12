@@ -114,7 +114,13 @@ Error message body will look something like this:
 **NOTE: Error code contains additional info about the error that occured. (e.g. InvalidGroupId (4), or InvalidScores (6))**
 
 ## Tests
-*In progress*
+Testing is currently available through Unit Test and Postman request collection.
+
+### Unit Tests
+Unit tests are written using xUnit and Moq frameworks and are available for `LiveScore` project code in `LiveScoreTests` project.
+
+### Postman
+Example request collection is exported using Collection v2.1 and is available in `WebAPI.postman_collection.json` file.
 
 ## Developer Guidelines
 *In progress*
