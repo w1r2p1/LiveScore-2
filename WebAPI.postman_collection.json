@@ -18,7 +18,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"client_id\": \"R6LFZz1743QR68fLnOoPSk3Tzc75RDGn\",\n\t\"client_secret\": \"4MT9uYk58MMSE3wV6keWi1tSb4i9ZxTVbxmwNcfxRTaZ8E-zp8XYpHc4kgk_p-EL\",\n\t\"audience\": \"https://localhost\",\n\t\"grant_type\": \"client_credentials\"\n}"
+					"raw": "{\n\t\"client_id\": \"YOUR_CLIENT_ID\",\n\t\"client_secret\": \"YOUR_CLIENT_SECRET\",\n\t\"audience\": \"https://localhost\",\n\t\"grant_type\": \"client_credentials\"\n}"
 				},
 				"url": {
 					"raw": "https://gotrunx.auth0.com/oauth/token",
