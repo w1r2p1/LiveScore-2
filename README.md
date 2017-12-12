@@ -2,7 +2,31 @@
 Simple Web API for sport results overview that allows submition and update of game scores, and standings calculation.
 
 ## Authorization
-*In progress*
+Authorization and user management is provided via Auth0 service. Client application needs to obtain bearer token by sending POST request to https://gotrunx.auth0.com/oauth/token with application/json body with contents similar to this:
+```
+{
+  "client_id": YOUR_CLIENT_ID,
+  "client_secret": YOUR_CLIENT_SECRET,
+  "audience": "https://localhost",
+  "grant_type": "client_credentials"
+}
+```
+**NOTE: Replace YOUR_CLIENT_ID and YOUR_CLIENT_SECRET with provided values for your client app.**
+
+Response from Auth0 service will look something like this:
+```
+{
+  "access_token": RANDOM_ACCESS_TOKEN,
+  "scope": "create:scores read:scores",
+  "expires_in": 86400,
+  "token_type": "Bearer"
+}
+```
+**NOTE: RANDOM_ACCESS_TOKEN will actualy be your new bearer token value that needs to be passed in header of API requests as 'Authorization' parameter.**
+
+There are two scopes defined for this API:
+- `create:scores`: requested by *SubmitScores* and *UpdateScores* endpoints.
+- `read:scores`: requested by *GetScores* and *GetStandings* endpoints.
 
 ## API Endpoints (api/scores)
 This is a short walktrough of available endpoints and their parameters.
