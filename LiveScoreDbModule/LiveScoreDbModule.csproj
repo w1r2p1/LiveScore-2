@@ -8,6 +8,10 @@
     <ProjectReference Include="..\LiveScore\LiveScore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Scripts\" />
+  </ItemGroup>
+
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="copy /Y &quot;$(TargetDir)$(ProjectName).dll&quot; &quot;C:\\plugins\$(ProjectName).dll&quot;" />
   </Target>
