@@ -99,7 +99,19 @@ api/scores/standings?groupIds=1,2,4
 **NOTE: URL parameter is optional and called 'groupIds'. It can contain single integer vaule or multiple (coma-separated) integer values.**
 
 ## Response Messages
-*In progress*
+Response messages will contain one of the following HTTP status codes:
+- `200 OK`: if request is successfully proccessed and response is returned.
+- `400 Bad Request`: if one of the parameters in the request is invalid.
+- `401 Authorization Error`: probably if baerer token is expired or required scope is not provided by client.
+- `500 Internal Server Error`: if error occurs during request processing caused by server state.
+
+Error message body will look something like this:
+```
+{
+  "error_code": 3
+}
+```
+**NOTE: Error code contains additional info about the error that occured. (e.g. InvalidGroupId (4), or InvalidScores (6))**
 
 ## Tests
 *In progress*
