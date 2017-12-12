@@ -123,6 +123,6 @@ Unit tests are written using xUnit and Moq frameworks and are available for `Liv
 Example request collection is exported using Collection v2.1 and is available in `WebAPI.postman_collection.json` file.
 
 ## Developer Guidelines
-Application can be extended using [Autofac Module mechanism] (http://autofaccn.readthedocs.io/en/latest/configuration/modules.html) that enables developers to add new services and functionalities by placing their DLL files in `"pluginPath"` location defined in `config.json`.
+Application can be extended using [Autofac Module mechanism](http://autofaccn.readthedocs.io/en/latest/configuration/modules.html) that enables developers to add new services and functionalities by placing their DLL files in `"pluginPath"` location defined in `config.json`.
 
 `LiveScoreDbModule` project can server as an example that provides support for Entity Framework and SQL Server as backends for provided DAL.
