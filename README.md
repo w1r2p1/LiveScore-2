@@ -43,15 +43,15 @@ Parameter (passed through request body) for this endpoint is an array of GameSco
 This endpoint lists existing game scores. They can be filtered using parameter (passed through request body) that is array of Filter models which look like this:
 ```
 [
-	{
-		"name": 0,
-		"value": "2017-09-01T20:00:00"
-	},
-	{
-		"name": 1,
-		"value": "2017-09-08T20:00:00",
-		"relation": 1
-	}
+  {
+    "name": 0,
+    "value": "2017-09-01T20:00:00"
+  },
+  {
+    "name": 1,
+    "value": "2017-09-08T20:00:00",
+    "relation": 1
+  }
 ]
 ```
 Name parameter can have one of the following values:
@@ -65,6 +65,14 @@ Relation parameter can have one of the following values:
 - AND (1)
 
 **NOTE: Relation parameter is applied alongs with previous filter, hence first filter needs it not.**
+
+### GetStandings (api/scores/standings) GET
+This endpoint calculate standings based on existing scores. They can be filtered using parameter (passed through request URL) that is array of group Ids (int) which looks like this:
+```
+api/scores/standings?groupIds=1,2,4
+```
+
+**NOTE: URL parameter is optional and called 'groupIds'. It can contain single integer vaule or multiple (coma-separated) integer values.**
 
 ## Response Messages
 *In progress*
