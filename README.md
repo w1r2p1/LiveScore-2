@@ -1,5 +1,5 @@
 # LiveScore
-Simple Web API for sport results overview that allows submition and update of game scores, and standigs calculation.
+Simple Web API for sport results overview that allows submition and update of game scores, and standings calculation.
 
 ## Authorization
 *In progress*
@@ -23,10 +23,26 @@ Parameter for this endpoint is an array of GameScore models which look like this
 ```
 **NOTE: Date is in ISO 8601 format.**
 
-## Tests
+### UpdateScores (api/scores/submit) POST
+This endpoint allows update of existing game scores. Similar usage as SubmitScores. You can update one game, entire group, multiple groups, even all league games.
+Parameter for this endpoint is an array of GameScore models which look like this:
+```
+{
+  "leagueTitle": "Champions League 2017/18",
+  "matchday": 1,
+  "group": "A",
+  "homeTeam": "Manchester United",
+  "awayTeam": "Basel",
+  "kickoffAt": "2017-09-01T20:00:00",
+  "score": "3:2"
+}
+```
+**NOTE: Date is in ISO 8601 format.**
+
+## Response Messages
 *In progress*
 
-## Sample Date
+## Tests
 *In progress*
 
 ## Developer Guidelines
