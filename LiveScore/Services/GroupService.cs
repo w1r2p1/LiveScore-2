@@ -40,7 +40,7 @@ namespace LiveScore.Services
         public GroupStandings[] GetStandings(int[] groupIds = null)
         {
             var groups = groupIds != null && groupIds.Any() ?
-                dbUnit.Groups.Get(g => groupIds.Any(gid => gid == g.Id)) :
+                dbUnit.Groups.Get().Where(g => groupIds.Any(gid => gid == g.Id)) :
                 dbUnit.Groups.Get();
 
             var resultModels = new List<GroupStandings>();
@@ -51,8 +51,8 @@ namespace LiveScore.Services
                 {
                     LeagueTitle = GetLeagueNameByGroupId(group.Id),
                     Group = group.Name,
-                    MatchDay = dbUnit.MatchDays
-                        .Get(md => md.League.Id == group.League.Id)
+                    MatchDay = dbUnit.MatchDays.Get()
+                        .Where(md => md.League.Id == group.League.Id)
                         .OrderByDescending(md => md.Number)
                         .First()
                         .Number
@@ -67,7 +67,7 @@ namespace LiveScore.Services
                         Team = team.Name
                     };
 
-                    var games = dbUnit.Games.Get(g => g.HomeTeam.Id == team.Id || g.AwayTeam.Id == team.Id);
+                    var games = dbUnit.Games.Get().Where(g => g.HomeTeam.Id == team.Id || g.AwayTeam.Id == team.Id);
 
                     foreach (var game in games)
                     {

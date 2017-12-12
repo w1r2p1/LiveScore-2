@@ -93,10 +93,10 @@ namespace LiveScoreTests.Services
             Assert.True(result[0].Standings[1].Team.Equals(teams[2].Name));
             Assert.True(result[0].Standings[2].Team.Equals(teams[1].Name));
             Assert.True(result[0].Standings[3].Team.Equals(teams[3].Name));
-            Assert.True(result[1].Standings[0].Team.Equals(teams[5].Name));
-            Assert.True(result[1].Standings[1].Team.Equals(teams[6].Name));
-            Assert.True(result[1].Standings[2].Team.Equals(teams[7].Name));
-            Assert.True(result[1].Standings[3].Team.Equals(teams[4].Name));
+            Assert.True(result[1].Standings[0].Team.Equals(teams[6].Name));
+            Assert.True(result[1].Standings[1].Team.Equals(teams[4].Name));
+            Assert.True(result[1].Standings[2].Team.Equals(teams[5].Name));
+            Assert.True(result[1].Standings[3].Team.Equals(teams[7].Name));
         }
 
         private IRepository<League> GetLeagueRepositoryMock()
@@ -113,8 +113,8 @@ namespace LiveScoreTests.Services
         {
             var gameRepositoryMock = new Mock<IRepository<Game>>();
             gameRepositoryMock
-                .Setup(r => r.Get(It.IsAny<Expression<Func<Game, bool>>>()))
-                .Returns((Expression<Func<Game, bool>> predicate) => Mocks.GetGames().Where(predicate.Compile()));
+                .Setup(r => r.Get())
+                .Returns(Mocks.GetGames());
 
             return gameRepositoryMock.Object;
         }
@@ -123,8 +123,8 @@ namespace LiveScoreTests.Services
         {
             var matchDayRepositoryMock = new Mock<IRepository<MatchDay>>();
             matchDayRepositoryMock
-                .Setup(r => r.Get(It.IsAny<Expression<Func<MatchDay, bool>>>()))
-                .Returns((Expression<Func<MatchDay, bool>> predicate) => Mocks.GetMatchDays().Where(predicate.Compile()));
+                .Setup(r => r.Get())
+                .Returns(Mocks.GetMatchDays());
 
             return matchDayRepositoryMock.Object;
         }
@@ -143,9 +143,6 @@ namespace LiveScoreTests.Services
             groupRepositoryMock
                 .Setup(r => r.Get())
                 .Returns(groups);
-            groupRepositoryMock
-                .Setup(r => r.Get(It.IsAny<Expression<Func<Group, bool>>>()))
-                .Returns((Expression<Func<Group, bool>> predicate) => groups.Where(predicate.Compile()));
 
             return groupRepositoryMock.Object;
         }

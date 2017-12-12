@@ -41,12 +41,12 @@ namespace LiveScore.Models.Business
         {
             get
             {
-                if (HomeTeamGoals == HomeTeamGoals)
+                if (HomeTeamGoals == AwayTeamGoals)
                 {
                     return MatchWinner.Draw;
                 }
 
-                return HomeTeamGoals > HomeTeamGoals ? MatchWinner.Home : MatchWinner.Away;
+                return HomeTeamGoals > AwayTeamGoals ? MatchWinner.Home : MatchWinner.Away;
             }
         }
     }

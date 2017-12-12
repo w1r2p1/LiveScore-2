@@ -18,13 +18,6 @@ namespace LiveScore.Contracts
         TEntity Get(int id);
 
         /// <summary>
-        /// This method returns all the entities of certain business model type that satisfy certain condition.
-        /// </summary>
-        /// <param name="condition">Sarch condition</param>
-        /// <returns>Business model entities</returns>
-        IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> condition);
-
-        /// <summary>
         /// This method returns all the entities of certain business model.
         /// </summary>
         /// <returns>Business model entities</returns>

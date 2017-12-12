@@ -57,13 +57,21 @@ namespace LiveScoreDbModule.DAL
                 .WithOne(s => s.Game)
                 .HasForeignKey<Score>(s => s.GameRef);
 
+            modelBuilder.Entity<Game>()
+                .HasOne(g => g.MatchDay)
+                .WithMany(md => md.Games);
+
             modelBuilder.Entity<Group>()
                 .HasOne(g => g.League)
                 .WithMany(l => l.Groups);
 
-            modelBuilder.Entity<Group>()
-                .HasMany(g => g.Teams)
-                .WithOne(t => t.Group);
+            modelBuilder.Entity<MatchDay>()
+                .HasOne(md => md.League)
+                .WithMany(l => l.MatchDays);
+
+            modelBuilder.Entity<Team>()
+                .HasOne(t => t.Group)
+                .WithMany(g => g.Teams);
         }
     }
 }

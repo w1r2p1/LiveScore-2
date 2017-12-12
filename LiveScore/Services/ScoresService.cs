@@ -105,8 +105,8 @@ namespace LiveScore.Services
                 var newScore = ConvertScore(gs);
                 var refGame = ConvertGame(gs);
 
-                var oldGame = dbUnit.Games
-                    .Get(g => g.Equals(refGame))
+                var oldGame = dbUnit.Games.Get()
+                    .Where(g => g.Compare(refGame))
                     .Single();
 
                 var oldScore = oldGame.Score;
@@ -173,11 +173,11 @@ namespace LiveScore.Services
             return new Game
             {
                 KickOff = DateTimeParser.ParseDate(gs.KickOffAt),
-                HomeTeam = dbUnit.Teams
-                    .Get(t => t.Name.Equals(gs.HomeTeam))
+                HomeTeam = dbUnit.Teams.Get()
+                    .Where(t => t.Name.Equals(gs.HomeTeam))
                     .FirstOrDefault(),
-                AwayTeam = dbUnit.Teams
-                    .Get(t => t.Name.Equals(gs.AwayTeam))
+                AwayTeam = dbUnit.Teams.Get()
+                    .Where(t => t.Name.Equals(gs.AwayTeam))
                     .FirstOrDefault(),
                 MatchDay = GetMatchday(gs) ?? CreateMatchDay(gs)
             };
@@ -185,8 +185,8 @@ namespace LiveScore.Services
 
         private MatchDay GetMatchday(GameScore gs)
         {
-            return dbUnit.MatchDays
-                .Get(md =>
+            return dbUnit.MatchDays.Get()
+                .Where(md =>
                     md.Number == gs.MatchDay &&
                     groupService.GetLeagueName(md.League.Id).Equals(gs.LeagueTitle))
                 .FirstOrDefault();
@@ -197,8 +197,8 @@ namespace LiveScore.Services
             return new MatchDay
             {
                 Number = gs.MatchDay,
-                League = dbUnit.Leagues
-                    .Get(l => groupService.GetLeagueName(l.Id).Equals(gs.LeagueTitle))
+                League = dbUnit.Leagues.Get()
+                    .Where(l => groupService.GetLeagueName(l.Id).Equals(gs.LeagueTitle))
                     .Single()
             };
         }

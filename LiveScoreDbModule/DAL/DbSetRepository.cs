@@ -28,11 +28,11 @@ namespace LiveScoreDbModule.DAL
             this.dbSet = context.Set<TEntity>();
             this.includedProperties = typeof(TEntity)
                 .GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                .Where(p => 
-                    p.PropertyType.IsAssignableFrom(typeof(TEntity)) ||
+                .Where(p =>
+                    typeof(IEntity).IsAssignableFrom(p.PropertyType) ||
                     p.PropertyType.IsGenericType &&
                     (p.PropertyType.GetGenericTypeDefinition() == typeof(List<>)) &&
-                    p.PropertyType.GetGenericArguments()[0].IsAssignableFrom(typeof(TEntity)));
+                    typeof(IEntity).IsAssignableFrom(p.PropertyType.GetGenericArguments()[0]));
         }
 
         /// <summary>
@@ -66,24 +66,14 @@ namespace LiveScoreDbModule.DAL
         /// <returns>Business model entity</returns>
         public TEntity Get(int id)
         {
-            return Get(e => e.Id == id).Single();
-        }
-
-        /// <summary>
-        /// This method returns all the entities of certain business model type that satisfy certain condition.
-        /// </summary>
-        /// <param name="condition">Search condition</param>
-        /// <returns>Business model entities</returns>
-        public IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> condition)
-        {
-            var query = dbSet.Where(condition);
+            var query = dbSet.Where(e => e.Id == id);
 
             foreach (var includeProperty in includedProperties)
             {
                 query = query.Include(includeProperty.Name);
             }
 
-            return query.ToList();
+            return query.ToList().FirstOrDefault();
         }
 
         /// <summary>

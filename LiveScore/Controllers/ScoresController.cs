@@ -53,7 +53,7 @@ namespace LiveScore.Controllers
         /// <returns>Http status response</returns>
         [Authorize("create:scores")]
         [HttpPost("update")]
-        public IActionResult UpdateScores(GameScore[] gameScores)
+        public IActionResult UpdateScores([FromBody]GameScore[] gameScores)
         {
             if (gameScores == null || !gameScores.Any())
             {
@@ -70,8 +70,8 @@ namespace LiveScore.Controllers
         /// <param name="scoreFilters">Score filters</param>
         /// <returns>Filtered game scores</returns>
         [Authorize("read:scores")]
-        [HttpGet("fetch")]
-        public IActionResult GetScores(Filter[] scoreFilters)
+        [HttpPost("fetch")]
+        public IActionResult GetScores([FromBody]Filter[] scoreFilters)
         {
             return Ok(scoresService.GetScores(scoreFilters));
         }

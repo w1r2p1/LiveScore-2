@@ -182,8 +182,8 @@ namespace LiveScoreTests.Services
                 .Setup(r => r.Get())
                 .Returns(tmpGames);
             gameRepositoryMock
-                .Setup(r => r.Get(It.IsAny<Expression<Func<Game, bool>>>()))
-                .Returns((Expression<Func<Game, bool>> predicate) => tmpGames.Where(predicate.Compile()));
+                .Setup(r => r.Get())
+                .Returns(tmpGames);
             gameRepositoryMock
                 .Setup(r => r.Insert(It.IsAny<Game>()))
                 .Callback<Game>(g => tmpGames.Add(g));
@@ -210,7 +210,7 @@ namespace LiveScoreTests.Services
         {
             var leagueRepositoryMock = new Mock<IRepository<League>>();
             leagueRepositoryMock
-                .Setup(r => r.Get(It.IsAny<Expression<Func<League, bool>>>()))
+                .Setup(r => r.Get())
                 .Returns(new List<League> { Mocks.GetLeague() });
 
             return leagueRepositoryMock.Object;
@@ -223,8 +223,8 @@ namespace LiveScoreTests.Services
                 .Setup(r => r.Get(It.IsAny<int>()))
                 .Returns<int>(tid => Mocks.GetTeams().Single(t => t.Id == tid));
             teamRepositoryMock
-                .Setup(r => r.Get(It.IsAny<Expression<Func<Team, bool>>>()))
-                .Returns((Expression<Func<Team, bool>> predicate) => Mocks.GetTeams().Where(predicate.Compile()));
+                .Setup(r => r.Get())
+                .Returns(Mocks.GetTeams());
 
             return teamRepositoryMock.Object;
         }
@@ -236,8 +236,8 @@ namespace LiveScoreTests.Services
                 .Setup(r => r.Get(It.IsAny<int>()))
                 .Returns<int>(tid => Mocks.GetMatchDays().Single(t => t.Id == tid));
             matchDayRepositoryMock
-                .Setup(r => r.Get(It.IsAny<Expression<Func<MatchDay, bool>>>()))
-                .Returns((Expression<Func<MatchDay, bool>> predicate) => Mocks.GetMatchDays().Where(predicate.Compile()));
+                .Setup(r => r.Get())
+                .Returns(Mocks.GetMatchDays());
 
             return matchDayRepositoryMock.Object;
         }

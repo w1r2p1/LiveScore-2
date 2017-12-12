@@ -7,7 +7,7 @@ namespace LiveScore.Models.Business
     /// <summary>
     /// Business model that encapsulates game-related data.
     /// </summary>
-    public sealed class Game : IEquatable<Game>, IEntity
+    public sealed class Game : IEntity
     {
         /// <summary>Unique identifier</summary>
         [Key]
@@ -33,7 +33,7 @@ namespace LiveScore.Models.Business
         /// </summary>
         /// <param name="other">Test game model</param>
         /// <returns>Whether or not game model is equal to test game model</returns>
-        public bool Equals(Game other)
+        public bool Compare(Game other)
         {
             if (other == null ||
                 this.HomeTeam.Id != other.HomeTeam.Id ||
@@ -44,26 +44,6 @@ namespace LiveScore.Models.Business
             }
 
             return true;
-        }
-
-        /// <summary>
-        /// This method is an override of <see cref="System.Object"/> equality method.
-        /// </summary>
-        /// <param name="obj">Test object</param>
-        /// <returns>Whether or not game model is equal to test object</returns>
-        public override bool Equals(Object obj)
-        {
-            var personObj = obj as Game;
-            return (personObj == null) ? false : Equals(personObj);
-        }
-
-        /// <summary>
-        /// This method is an override of <see cref="System.Object"/> hash method.
-        /// </summary>
-        /// <returns>Hash value of game model</returns>
-        public override int GetHashCode()
-        {
-            return (this.HomeTeam.Name + this.AwayTeam.Name + this.MatchDay.Id).GetHashCode();
         }
     }
 }
