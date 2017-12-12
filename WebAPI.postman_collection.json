@@ -1,0 +1,349 @@
+{
+	"info": {
+		"name": "WebAPI",
+		"_postman_id": "07ce5200-e78c-2407-e555-1d434cdf1ef9",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authenticate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "content-type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"client_id\": \"R6LFZz1743QR68fLnOoPSk3Tzc75RDGn\",\n\t\"client_secret\": \"4MT9uYk58MMSE3wV6keWi1tSb4i9ZxTVbxmwNcfxRTaZ8E-zp8XYpHc4kgk_p-EL\",\n\t\"audience\": \"https://localhost\",\n\t\"grant_type\": \"client_credentials\"\n}"
+				},
+				"url": {
+					"raw": "https://gotrunx.auth0.com/oauth/token",
+					"protocol": "https",
+					"host": [
+						"gotrunx",
+						"auth0",
+						"com"
+					],
+					"path": [
+						"oauth",
+						"token"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "1_SubmitGroupScores",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlFURkZOa1V4TmpReFF6UXdOVU0yTmpkQ1JqQkdNRGt5UWtJNE16RTRORUkzUWpJeU16VXhNZyJ9.eyJpc3MiOiJodHRwczovL2dvdHJ1bnguYXV0aDAuY29tLyIsInN1YiI6IlI2TEZaejE3NDNRUjY4ZkxuT29QU2szVHpjNzVSREduQGNsaWVudHMiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdCIsImlhdCI6MTUxMzAyNDQ3OCwiZXhwIjoxNTEzMTEwODc4LCJzY29wZSI6ImNyZWF0ZTpzY29yZXMgcmVhZDpzY29yZXMiLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.uehZN0RCJXR5ln2QTFVUEEgr9maopJZquAEosyDUZUoN6hcRZsEm1bQqc-S2Dacct6LGmOWN5TQVuogiuccLiXQLmnODiBtx5mkMF6QiYwUhpRV3Z28Dzx9QsBlARM4eFgpKI4e0z48ecPXTseJ9ug-2a3MiKUMqa846CZd4y1_7GqU1oipwTSUIyl2ANK5m_QqmE71SGKJBGxrT-0R4WBmiJrsAFzo-_lGcX0BYshGUBkOy6csaq8KI9H3g-Lnnww5dp3nchtxqLDpINJGyHQABvBtdVX2k3iK0sCozNKLxkB2ZZxUchDCd4svFcucgJfgwL2MZ_CEFhuU4uU6KkQ"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 1,\r\n        \"group\": \"A\",\r\n        \"homeTeam\": \"Manchester United\",\r\n        \"awayTeam\": \"Basel\",\r\n        \"kickoffAt\": \"2017-09-01T20:00:00\",\r\n        \"score\": \"3:0\"\r\n    },\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 1,\r\n        \"group\": \"A\",\r\n        \"homeTeam\": \"Benfica\",\r\n        \"awayTeam\": \"CSKA Moskow\",\r\n        \"kickoffAt\": \"2017-09-01T20:00:00\",\r\n        \"score\": \"1:2\"\r\n    },\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 2,\r\n        \"group\": \"A\",\r\n        \"homeTeam\": \"CSKA Moskow\",\r\n        \"awayTeam\": \"Manchester United\",\r\n        \"kickoffAt\": \"2017-09-08T20:00:00\",\r\n        \"score\": \"1:4\"\r\n    },\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 2,\r\n        \"group\": \"A\",\r\n        \"homeTeam\": \"Basel\",\r\n        \"awayTeam\": \"Benfica\",\r\n        \"kickoffAt\": \"2017-09-08T20:00:00\",\r\n        \"score\": \"5:0\"\r\n    },\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 3,\r\n        \"group\": \"A\",\r\n        \"homeTeam\": \"Benfica\",\r\n        \"awayTeam\": \"Manchester United\",\r\n        \"kickoffAt\": \"2017-09-15T20:00:00\",\r\n        \"score\": \"0:1\"\r\n    },\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 3,\r\n        \"group\": \"A\",\r\n        \"homeTeam\": \"CSKA Moskow\",\r\n        \"awayTeam\": \"Basel\",\r\n        \"kickoffAt\": \"2017-09-15T20:00:00\",\r\n        \"score\": \"0:2\"\r\n    },\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 4,\r\n        \"group\": \"A\",\r\n        \"homeTeam\": \"Manchester United\",\r\n        \"awayTeam\": \"Benfica\",\r\n        \"kickoffAt\": \"2017-09-22T20:00:00\",\r\n        \"score\": \"2:0\"\r\n    },\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 4,\r\n        \"group\": \"A\",\r\n        \"homeTeam\": \"Basel\",\r\n        \"awayTeam\": \"CSKA Moskow\",\r\n        \"kickoffAt\": \"2017-09-22T20:00:00\",\r\n        \"score\": \"1:2\"\r\n    },\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 5,\r\n        \"group\": \"A\",\r\n        \"homeTeam\": \"CSKA Moskow\",\r\n        \"awayTeam\": \"Benfica\",\r\n        \"kickoffAt\": \"2017-09-29T20:00:00\",\r\n        \"score\": \"2:0\"\r\n    },\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 5,\r\n        \"group\": \"A\",\r\n        \"homeTeam\": \"Basel\",\r\n        \"awayTeam\": \"Manchester United\",\r\n        \"kickoffAt\": \"2017-09-29T20:00:00\",\r\n        \"score\": \"1:0\"\r\n    }\r\n]"
+				},
+				"url": {
+					"raw": "https://localhost:44309/api/scores/submit",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44309",
+					"path": [
+						"api",
+						"scores",
+						"submit"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "2_GetGroupStandings",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlFURkZOa1V4TmpReFF6UXdOVU0yTmpkQ1JqQkdNRGt5UWtJNE16RTRORUkzUWpJeU16VXhNZyJ9.eyJpc3MiOiJodHRwczovL2dvdHJ1bnguYXV0aDAuY29tLyIsInN1YiI6IlI2TEZaejE3NDNRUjY4ZkxuT29QU2szVHpjNzVSREduQGNsaWVudHMiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdCIsImlhdCI6MTUxMzAyNDQ3OCwiZXhwIjoxNTEzMTEwODc4LCJzY29wZSI6ImNyZWF0ZTpzY29yZXMgcmVhZDpzY29yZXMiLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.uehZN0RCJXR5ln2QTFVUEEgr9maopJZquAEosyDUZUoN6hcRZsEm1bQqc-S2Dacct6LGmOWN5TQVuogiuccLiXQLmnODiBtx5mkMF6QiYwUhpRV3Z28Dzx9QsBlARM4eFgpKI4e0z48ecPXTseJ9ug-2a3MiKUMqa846CZd4y1_7GqU1oipwTSUIyl2ANK5m_QqmE71SGKJBGxrT-0R4WBmiJrsAFzo-_lGcX0BYshGUBkOy6csaq8KI9H3g-Lnnww5dp3nchtxqLDpINJGyHQABvBtdVX2k3iK0sCozNKLxkB2ZZxUchDCd4svFcucgJfgwL2MZ_CEFhuU4uU6KkQ"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "https://localhost:44309/api/scores/standings?groupIds=1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44309",
+					"path": [
+						"api",
+						"scores",
+						"standings"
+					],
+					"query": [
+						{
+							"key": "groupIds",
+							"value": "1",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "3_SubmitGroupScores",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlFURkZOa1V4TmpReFF6UXdOVU0yTmpkQ1JqQkdNRGt5UWtJNE16RTRORUkzUWpJeU16VXhNZyJ9.eyJpc3MiOiJodHRwczovL2dvdHJ1bnguYXV0aDAuY29tLyIsInN1YiI6IlI2TEZaejE3NDNRUjY4ZkxuT29QU2szVHpjNzVSREduQGNsaWVudHMiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdCIsImlhdCI6MTUxMzAyNDQ3OCwiZXhwIjoxNTEzMTEwODc4LCJzY29wZSI6ImNyZWF0ZTpzY29yZXMgcmVhZDpzY29yZXMiLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.uehZN0RCJXR5ln2QTFVUEEgr9maopJZquAEosyDUZUoN6hcRZsEm1bQqc-S2Dacct6LGmOWN5TQVuogiuccLiXQLmnODiBtx5mkMF6QiYwUhpRV3Z28Dzx9QsBlARM4eFgpKI4e0z48ecPXTseJ9ug-2a3MiKUMqa846CZd4y1_7GqU1oipwTSUIyl2ANK5m_QqmE71SGKJBGxrT-0R4WBmiJrsAFzo-_lGcX0BYshGUBkOy6csaq8KI9H3g-Lnnww5dp3nchtxqLDpINJGyHQABvBtdVX2k3iK0sCozNKLxkB2ZZxUchDCd4svFcucgJfgwL2MZ_CEFhuU4uU6KkQ"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 1,\r\n        \"group\": \"B\",\r\n        \"homeTeam\": \"Celtic\",\r\n        \"awayTeam\": \"PSG\",\r\n        \"kickoffAt\": \"2017-09-01T20:00:00\",\r\n        \"score\": \"0:5\"\r\n    },\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 1,\r\n        \"group\": \"B\",\r\n        \"homeTeam\": \"Bayern Munich\",\r\n        \"awayTeam\": \"Anderlecht\",\r\n        \"kickoffAt\": \"2017-09-01T20:00:00\",\r\n        \"score\": \"3:0\"\r\n    },\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 2,\r\n        \"group\": \"B\",\r\n        \"homeTeam\": \"Anderlecht\",\r\n        \"awayTeam\": \"Celtic\",\r\n        \"kickoffAt\": \"2017-09-08T20:00:00\",\r\n        \"score\": \"0:3\"\r\n    },\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 2,\r\n        \"group\": \"B\",\r\n        \"homeTeam\": \"PSG\",\r\n        \"awayTeam\": \"Bayern Munich\",\r\n        \"kickoffAt\": \"2017-09-08T20:00:00\",\r\n        \"score\": \"3:0\"\r\n    },\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 3,\r\n        \"group\": \"B\",\r\n        \"homeTeam\": \"Bayern Munich\",\r\n        \"awayTeam\": \"Celtic\",\r\n        \"kickoffAt\": \"2017-09-15T20:00:00\",\r\n        \"score\": \"3:0\"\r\n    },\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 3,\r\n        \"group\": \"B\",\r\n        \"homeTeam\": \"Anderlecht\",\r\n        \"awayTeam\": \"PSG\",\r\n        \"kickoffAt\": \"2017-09-15T20:00:00\",\r\n        \"score\": \"0:4\"\r\n    },\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 4,\r\n        \"group\": \"B\",\r\n        \"homeTeam\": \"Celtic\",\r\n        \"awayTeam\": \"Bayern Munich\",\r\n        \"kickoffAt\": \"2017-09-22T20:00:00\",\r\n        \"score\": \"1:2\"\r\n    },\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 4,\r\n        \"group\": \"B\",\r\n        \"homeTeam\": \"PSG\",\r\n        \"awayTeam\": \"Anderlecht\",\r\n        \"kickoffAt\": \"2017-09-22T20:00:00\",\r\n        \"score\": \"5:0\"\r\n    },\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 5,\r\n        \"group\": \"B\",\r\n        \"homeTeam\": \"PSG\",\r\n        \"awayTeam\": \"Celtic\",\r\n        \"kickoffAt\": \"2017-09-29T20:00:00\",\r\n        \"score\": \"7:1\"\r\n    },\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 5,\r\n        \"group\": \"B\",\r\n        \"homeTeam\": \"Anderlecht\",\r\n        \"awayTeam\": \"Bayern Munich\",\r\n        \"kickoffAt\": \"2017-09-29T20:00:00\",\r\n        \"score\": \"1:2\"\r\n    },\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 1,\r\n        \"group\": \"C\",\r\n        \"homeTeam\": \"Roma\",\r\n        \"awayTeam\": \"Atletico Madrid\",\r\n        \"kickoffAt\": \"2017-09-01T20:00:00\",\r\n        \"score\": \"0:0\"\r\n    },\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 1,\r\n        \"group\": \"C\",\r\n        \"homeTeam\": \"Chelsea\",\r\n        \"awayTeam\": \"Qarabag\",\r\n        \"kickoffAt\": \"2017-09-01T20:00:00\",\r\n        \"score\": \"6:0\"\r\n    },\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 2,\r\n        \"group\": \"C\",\r\n        \"homeTeam\": \"Atletico Madrid\",\r\n        \"awayTeam\": \"Chelsea\",\r\n        \"kickoffAt\": \"2017-09-08T20:00:00\",\r\n        \"score\": \"1:2\"\r\n    },\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 2,\r\n        \"group\": \"C\",\r\n        \"homeTeam\": \"Qarabag\",\r\n        \"awayTeam\": \"Roma\",\r\n        \"kickoffAt\": \"2017-09-08T20:00:00\",\r\n        \"score\": \"1:2\"\r\n    },\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 3,\r\n        \"group\": \"C\",\r\n        \"homeTeam\": \"Chelsea\",\r\n        \"awayTeam\": \"Roma\",\r\n        \"kickoffAt\": \"2017-09-15T20:00:00\",\r\n        \"score\": \"3:3\"\r\n    },\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 3,\r\n        \"group\": \"C\",\r\n        \"homeTeam\": \"Qarabag\",\r\n        \"awayTeam\": \"Atletico Madrid\",\r\n        \"kickoffAt\": \"2017-09-15T20:00:00\",\r\n        \"score\": \"0:0\"\r\n    },\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 4,\r\n        \"group\": \"C\",\r\n        \"homeTeam\": \"Roma\",\r\n        \"awayTeam\": \"Chelsea\",\r\n        \"kickoffAt\": \"2017-09-22T20:00:00\",\r\n        \"score\": \"3:0\"\r\n    },\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 4,\r\n        \"group\": \"C\",\r\n        \"homeTeam\": \"Atletico Madrid\",\r\n        \"awayTeam\": \"Qarabag\",\r\n        \"kickoffAt\": \"2017-09-22T20:00:00\",\r\n        \"score\": \"1:1\"\r\n    },\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 5,\r\n        \"group\": \"C\",\r\n        \"homeTeam\": \"Qarabag\",\r\n        \"awayTeam\": \"Chelsea\",\r\n        \"kickoffAt\": \"2017-09-29T20:00:00\",\r\n        \"score\": \"0:4\"\r\n    },\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 5,\r\n        \"group\": \"C\",\r\n        \"homeTeam\": \"Atletico Madrid\",\r\n        \"awayTeam\": \"Roma\",\r\n        \"kickoffAt\": \"2017-09-29T20:00:00\",\r\n        \"score\": \"2:0\"\r\n    }\r\n]"
+				},
+				"url": {
+					"raw": "https://localhost:44309/api/scores/submit",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44309",
+					"path": [
+						"api",
+						"scores",
+						"submit"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "3_GetGroupStandings",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlFURkZOa1V4TmpReFF6UXdOVU0yTmpkQ1JqQkdNRGt5UWtJNE16RTRORUkzUWpJeU16VXhNZyJ9.eyJpc3MiOiJodHRwczovL2dvdHJ1bnguYXV0aDAuY29tLyIsInN1YiI6IlI2TEZaejE3NDNRUjY4ZkxuT29QU2szVHpjNzVSREduQGNsaWVudHMiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdCIsImlhdCI6MTUxMzAyNDQ3OCwiZXhwIjoxNTEzMTEwODc4LCJzY29wZSI6ImNyZWF0ZTpzY29yZXMgcmVhZDpzY29yZXMiLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.uehZN0RCJXR5ln2QTFVUEEgr9maopJZquAEosyDUZUoN6hcRZsEm1bQqc-S2Dacct6LGmOWN5TQVuogiuccLiXQLmnODiBtx5mkMF6QiYwUhpRV3Z28Dzx9QsBlARM4eFgpKI4e0z48ecPXTseJ9ug-2a3MiKUMqa846CZd4y1_7GqU1oipwTSUIyl2ANK5m_QqmE71SGKJBGxrT-0R4WBmiJrsAFzo-_lGcX0BYshGUBkOy6csaq8KI9H3g-Lnnww5dp3nchtxqLDpINJGyHQABvBtdVX2k3iK0sCozNKLxkB2ZZxUchDCd4svFcucgJfgwL2MZ_CEFhuU4uU6KkQ"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "https://localhost:44309/api/scores/standings",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44309",
+					"path": [
+						"api",
+						"scores",
+						"standings"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "4_GetGroupStandings",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlFURkZOa1V4TmpReFF6UXdOVU0yTmpkQ1JqQkdNRGt5UWtJNE16RTRORUkzUWpJeU16VXhNZyJ9.eyJpc3MiOiJodHRwczovL2dvdHJ1bnguYXV0aDAuY29tLyIsInN1YiI6IlI2TEZaejE3NDNRUjY4ZkxuT29QU2szVHpjNzVSREduQGNsaWVudHMiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdCIsImlhdCI6MTUxMzAyNDQ3OCwiZXhwIjoxNTEzMTEwODc4LCJzY29wZSI6ImNyZWF0ZTpzY29yZXMgcmVhZDpzY29yZXMiLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.uehZN0RCJXR5ln2QTFVUEEgr9maopJZquAEosyDUZUoN6hcRZsEm1bQqc-S2Dacct6LGmOWN5TQVuogiuccLiXQLmnODiBtx5mkMF6QiYwUhpRV3Z28Dzx9QsBlARM4eFgpKI4e0z48ecPXTseJ9ug-2a3MiKUMqa846CZd4y1_7GqU1oipwTSUIyl2ANK5m_QqmE71SGKJBGxrT-0R4WBmiJrsAFzo-_lGcX0BYshGUBkOy6csaq8KI9H3g-Lnnww5dp3nchtxqLDpINJGyHQABvBtdVX2k3iK0sCozNKLxkB2ZZxUchDCd4svFcucgJfgwL2MZ_CEFhuU4uU6KkQ"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "https://localhost:44309/api/scores/standings?groupIds=1,2,3",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44309",
+					"path": [
+						"api",
+						"scores",
+						"standings"
+					],
+					"query": [
+						{
+							"key": "groupIds",
+							"value": "1,2,3",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "5_SubmitGroupScores",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlFURkZOa1V4TmpReFF6UXdOVU0yTmpkQ1JqQkdNRGt5UWtJNE16RTRORUkzUWpJeU16VXhNZyJ9.eyJpc3MiOiJodHRwczovL2dvdHJ1bnguYXV0aDAuY29tLyIsInN1YiI6IlI2TEZaejE3NDNRUjY4ZkxuT29QU2szVHpjNzVSREduQGNsaWVudHMiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdCIsImlhdCI6MTUxMzAyNDQ3OCwiZXhwIjoxNTEzMTEwODc4LCJzY29wZSI6ImNyZWF0ZTpzY29yZXMgcmVhZDpzY29yZXMiLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.uehZN0RCJXR5ln2QTFVUEEgr9maopJZquAEosyDUZUoN6hcRZsEm1bQqc-S2Dacct6LGmOWN5TQVuogiuccLiXQLmnODiBtx5mkMF6QiYwUhpRV3Z28Dzx9QsBlARM4eFgpKI4e0z48ecPXTseJ9ug-2a3MiKUMqa846CZd4y1_7GqU1oipwTSUIyl2ANK5m_QqmE71SGKJBGxrT-0R4WBmiJrsAFzo-_lGcX0BYshGUBkOy6csaq8KI9H3g-Lnnww5dp3nchtxqLDpINJGyHQABvBtdVX2k3iK0sCozNKLxkB2ZZxUchDCd4svFcucgJfgwL2MZ_CEFhuU4uU6KkQ"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 1,\r\n        \"group\": \"D\",\r\n        \"homeTeam\": \"Olympiacos\",\r\n        \"awayTeam\": \"Sporting\",\r\n        \"kickoffAt\": \"2017-09-01T20:00:00\",\r\n        \"score\": \"2:3\"\r\n    }\r\n]"
+				},
+				"url": {
+					"raw": "https://localhost:44309/api/scores/submit",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44309",
+					"path": [
+						"api",
+						"scores",
+						"submit"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "6_GetScores",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlFURkZOa1V4TmpReFF6UXdOVU0yTmpkQ1JqQkdNRGt5UWtJNE16RTRORUkzUWpJeU16VXhNZyJ9.eyJpc3MiOiJodHRwczovL2dvdHJ1bnguYXV0aDAuY29tLyIsInN1YiI6IlI2TEZaejE3NDNRUjY4ZkxuT29QU2szVHpjNzVSREduQGNsaWVudHMiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdCIsImlhdCI6MTUxMzAyNDQ3OCwiZXhwIjoxNTEzMTEwODc4LCJzY29wZSI6ImNyZWF0ZTpzY29yZXMgcmVhZDpzY29yZXMiLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.uehZN0RCJXR5ln2QTFVUEEgr9maopJZquAEosyDUZUoN6hcRZsEm1bQqc-S2Dacct6LGmOWN5TQVuogiuccLiXQLmnODiBtx5mkMF6QiYwUhpRV3Z28Dzx9QsBlARM4eFgpKI4e0z48ecPXTseJ9ug-2a3MiKUMqa846CZd4y1_7GqU1oipwTSUIyl2ANK5m_QqmE71SGKJBGxrT-0R4WBmiJrsAFzo-_lGcX0BYshGUBkOy6csaq8KI9H3g-Lnnww5dp3nchtxqLDpINJGyHQABvBtdVX2k3iK0sCozNKLxkB2ZZxUchDCd4svFcucgJfgwL2MZ_CEFhuU4uU6KkQ"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n\t{\n\t\t\"name\": 0,\n\t\t\"value\": \"2017-09-01T20:00:00\"\n\t},\n\t{\n\t\t\"name\": 1,\n\t\t\"value\": \"2017-09-08T20:00:00\",\n\t\t\"relation\": 1\n\t}\n]"
+				},
+				"url": {
+					"raw": "https://localhost:44309/api/scores/fetch",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44309",
+					"path": [
+						"api",
+						"scores",
+						"fetch"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "6_GetAllScores",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlFURkZOa1V4TmpReFF6UXdOVU0yTmpkQ1JqQkdNRGt5UWtJNE16RTRORUkzUWpJeU16VXhNZyJ9.eyJpc3MiOiJodHRwczovL2dvdHJ1bnguYXV0aDAuY29tLyIsInN1YiI6IlI2TEZaejE3NDNRUjY4ZkxuT29QU2szVHpjNzVSREduQGNsaWVudHMiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdCIsImlhdCI6MTUxMzAyNDQ3OCwiZXhwIjoxNTEzMTEwODc4LCJzY29wZSI6ImNyZWF0ZTpzY29yZXMgcmVhZDpzY29yZXMiLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.uehZN0RCJXR5ln2QTFVUEEgr9maopJZquAEosyDUZUoN6hcRZsEm1bQqc-S2Dacct6LGmOWN5TQVuogiuccLiXQLmnODiBtx5mkMF6QiYwUhpRV3Z28Dzx9QsBlARM4eFgpKI4e0z48ecPXTseJ9ug-2a3MiKUMqa846CZd4y1_7GqU1oipwTSUIyl2ANK5m_QqmE71SGKJBGxrT-0R4WBmiJrsAFzo-_lGcX0BYshGUBkOy6csaq8KI9H3g-Lnnww5dp3nchtxqLDpINJGyHQABvBtdVX2k3iK0sCozNKLxkB2ZZxUchDCd4svFcucgJfgwL2MZ_CEFhuU4uU6KkQ"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44309/api/scores/fetch",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44309",
+					"path": [
+						"api",
+						"scores",
+						"fetch"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "7_UpdateScores",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlFURkZOa1V4TmpReFF6UXdOVU0yTmpkQ1JqQkdNRGt5UWtJNE16RTRORUkzUWpJeU16VXhNZyJ9.eyJpc3MiOiJodHRwczovL2dvdHJ1bnguYXV0aDAuY29tLyIsInN1YiI6IlI2TEZaejE3NDNRUjY4ZkxuT29QU2szVHpjNzVSREduQGNsaWVudHMiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdCIsImlhdCI6MTUxMzAyNDQ3OCwiZXhwIjoxNTEzMTEwODc4LCJzY29wZSI6ImNyZWF0ZTpzY29yZXMgcmVhZDpzY29yZXMiLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.uehZN0RCJXR5ln2QTFVUEEgr9maopJZquAEosyDUZUoN6hcRZsEm1bQqc-S2Dacct6LGmOWN5TQVuogiuccLiXQLmnODiBtx5mkMF6QiYwUhpRV3Z28Dzx9QsBlARM4eFgpKI4e0z48ecPXTseJ9ug-2a3MiKUMqa846CZd4y1_7GqU1oipwTSUIyl2ANK5m_QqmE71SGKJBGxrT-0R4WBmiJrsAFzo-_lGcX0BYshGUBkOy6csaq8KI9H3g-Lnnww5dp3nchtxqLDpINJGyHQABvBtdVX2k3iK0sCozNKLxkB2ZZxUchDCd4svFcucgJfgwL2MZ_CEFhuU4uU6KkQ"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"leagueTitle\": \"Champions League 2017/18\",\r\n        \"matchday\": 1,\r\n        \"group\": \"D\",\r\n        \"homeTeam\": \"Olympiacos\",\r\n        \"awayTeam\": \"Sporting\",\r\n        \"kickoffAt\": \"2017-09-01T20:00:00\",\r\n        \"score\": \"2:4\"\r\n    }\r\n]"
+				},
+				"url": {
+					"raw": "https://localhost:44309/api/scores/update",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44309",
+					"path": [
+						"api",
+						"scores",
+						"update"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
