@@ -79,8 +79,8 @@ This endpoint lists existing game scores. They can be filtered using parameter (
 ]
 ```
 Name parameter can have one of the following values:
-- Start date (0): requires ISO 8601 formated date time
-- End data (1): requires ISO 8601 formated date time
+- StartDate (0): requires ISO 8601 formated date time
+- EndDate (1): requires ISO 8601 formated date time
 - Team (2): requires team Id
 - Group (3): requires group Id
 
@@ -123,4 +123,6 @@ Unit tests are written using xUnit and Moq frameworks and are available for `Liv
 Example request collection is exported using Collection v2.1 and is available in `WebAPI.postman_collection.json` file.
 
 ## Developer Guidelines
-*In progress*
+Application can be extended using [Autofac Module mechanism] (http://autofaccn.readthedocs.io/en/latest/configuration/modules.html) that enables developers to add new services and functionalities by placing their DLL files in `"pluginPath"` location defined in `config.json`.
+
+`LiveScoreDbModule` project can server as an example that provides support for Entity Framework and SQL Server as backends for provided DAL.
